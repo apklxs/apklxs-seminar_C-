@@ -1,5 +1,5 @@
 ﻿ChoiceTasks(OutIntDigit(@"Введите 1 для выполнения Задачи №1"+"\n"+ "Веедите 2 для выполнения Задачи №2"+"\n"+ 
-"Веедите 3 для выполнения Задачи №3"+"\n"+"Веедите 4 для выполнения Задачи №2"+"\n"+"№="));
+"Веедите 3 для выполнения Задачи №3"+"\n"+"Веедите 4 для выполнения Задачи №4"+"\n"+"№="));
 
 
 void ChoiceTasks(int task)
@@ -12,7 +12,7 @@ void ChoiceTasks(int task)
         break;
  
     case 2:
-        Runta(); 
+        Runtask2(); 
         break;
     
     case 3:
@@ -58,16 +58,23 @@ void RunTask3()
 Console.WriteLine("Программа №3 Находит и выводит произведение двух матриц, размер матриц вводит пользователь, элементы матриц заполняются случайно.");
 Console.WriteLine("Внимание. Перемножение матриц возможно только вида lxm и mxn т.е. кол-во столбцов первой матрицы должно быть равно кол-ву строк второй");
  
-int lengthX= OutIntDigit("Введите количество строк первой матрицы(массива) = ");
-int lengthY= OutIntDigit("Введите количество столбцов первой матрицы(массива) = ");
+int lengthY= OutIntDigit("Введите количество строк первой матрицы(массива) = ");
+int lengthX= OutIntDigit("Введите количество столбцов первой матрицы(массива) = ");
 int[,] arrayMatrix1 = Create2DArrayInt(lengthY,lengthX); 
- 
-lengthX= OutIntDigit("Введите количество срок второй матрицы(массива) = ");
-lengthY= OutIntDigit("Введите количество столбцов второй матрицы(массива) = ");
+int checklengthXmatrix1=lengthX;
+lengthY= OutIntDigit("Введите количество срок второй матрицы(массива) = ");
+lengthX= OutIntDigit("Введите количество столбцов второй матрицы(массива) = ");
 int [,] arrayMatrix2 = Create2DArrayInt(lengthY,lengthX);
- 
-int[,] arrayOut = MultiplicationTwo2DArrayInt(arrayMatrix1,arrayMatrix2); 
-Print2DArrayInt(arrayOut);
+int checklengthYmatrix2=lengthY;
+if (checklengthXmatrix1 == checklengthYmatrix2 )
+ { 
+  int[,] arrayOut = MultiplicationTwo2DArrayInt(arrayMatrix1,arrayMatrix2); 
+  Print2DArrayInt(arrayOut);
+ }
+else
+ {
+  Console.WriteLine("Матрицы введенных размеров нельзя перемножать,кол-во столбцов первой матрицы должно быть равно кол-ву строк второй");
+ }
 }
  
 //Программа №1 Упорядочит по убыванию элементы каждой строки двумерного массива. Размер массива вводит пользователь. 
@@ -86,7 +93,7 @@ Print2DArrayInt(arrayout);
 }
  
 //Программа №2 Задает двумерный массив, находит строку с наименьшей суммой элементов и сообщает номер этой строки. 
-void Runta()
+void Runtask2()
 {
 Console.WriteLine("Задает двумерный массив, находит строку с наименьшей суммой элементов и сообщает номер этой строки.");
 Console.WriteLine("Элементы массива заполняются случайно.");   
@@ -313,159 +320,3 @@ int OutIntDigit(string info)
  
  return i;
 }
-
-
-
-
-
-
-/* void Runtest ()
-{
-int lengtharray = 7;
-int [] array = CreateArrayInt(lengtharray); 
- Console.WriteLine();
-SortedArrayMaxtoMin(array); 
-int[,] array2d = Create2DArrayInt(7,7);
-Print2DArrayInt(array2d);
-int [,] array2d2=SortedArrayMaxtoMin2D(array2d);  
- Console.WriteLine();
-Print2DArrayInt(array2d2);
-}
-
-void Runtest2 ()
-{
- int[,] array2d = Create2DArrayInt(4,4); 
- Print2DArrayInt(array2d);
- int [] array = SummStringElement2DarrayToArray(array2d); 
- Console.WriteLine($"Номер строки с максимальгной сумой элементов №{OutIndexMaxElementArray(array)+1}");  
-}
-
-Runtest2 ();
-
-
-int [] SummStringElement2DarrayToArray(int [,] array) 
-{
-int [] arrayout = new int[array.GetLength(0)];
-int summ=0;
-for(int i = 0; i < array.GetLength(0); i++)
- {    
-  for(int j = 0; j < array.GetLength(1); j++)
-  {    
-   summ = summ + array[i,j];
-  }
- arrayout[i] = summ;
- Console.WriteLine($"Сумма строки №{i+1}={arrayout[i]}");
- summ = 0;
- }
-return arrayout;
-}
-
-int OutIndexMaxElementArray(int [] array) 
-{
-  int max = array[0], maxi = 0;
-  for(int i = 0; i < array.Length; i++)
-  {    
-   if (max < array[i])
-    {
-     max = array[i];
-     maxi=i;
-    }
-  }
- //Console.WriteLine($" a[{maxi}]={array[maxi]}");
-return maxi;
-}
-
-
-
-int [,] SortedArrayMaxtoMin2D(int [,] array) 
-{
-for(int j = 0; j < array.GetLength(0); j++)
-{    
-for(int count = 0; count < array.GetLength(1); count++)
-{    
- int tempi = count;
- int max = array[j,count];
- int temp = array[j,count]; 
-  for(int i = count; i < array.GetLength(1); i++)
-   {
-    if (max < array[j,i])
-    {
-     max = array[j,i];
-     tempi = i;
-    }
-   }
-  array[j,count]=max;
-  array[j,tempi]=temp;
- }
-}
-return array;
-}
-
-
-
-
-
-
-int[] CreateArrayInt(int lengtharray) 
- {
-  int[] arrayout = new int[lengtharray];
-  Random rnd = new Random();
-  
-  for(int i = 0; i < arrayout.Length; i++)
-  {
-   arrayout[i] = rnd.Next(1,10);
-   Console.Write($"{arrayout[i]}  ");
-  }
-   return arrayout;
- } 
-
-void SortedArrayMaxtoMin(int [] array) 
-{
-for(int count = 0; count < array.Length; count++)
-{    
- int tempi = count;
- int max = array[count];
- int temp = array[count]; 
-  for(int i = count; i < array.Length; i++)
-   {
-    if (max < array[i])
-    {
-     max = array[i];
-     tempi = i;
-    }
-   }
-  array[count]=max;
-  array[tempi]=temp;
- }
- Console.WriteLine(String.Join("  ", array));
-}
-
-int[,] Create2DArrayInt(int lengthY, int lengthX) 
- {
-  int[,] arrayout = new int[lengthY,lengthX];
-  Random rnd = new Random();
-  
-  for(int i = 0; i < arrayout.GetLength(0); i++)
-  {
-   for(int j = 0; j < arrayout.GetLength(1); j++)
-   {
-    arrayout[i,j] = rnd.Next(1,10);
-    //Console.Write($"{arrayout[i,j]}  ");
-   }
-    //Console.WriteLine();
-  }
-  return arrayout;
- } 
-
- void Print2DArrayInt(int[,] array)
- {
-  
-  for(int i = 0; i < array.GetLength(0); i++)
-  {
-   for(int j = 0; j < array.GetLength(1); j++)
-   {
-     Console.Write($"{array[i,j]} ");
-   }
-     Console.WriteLine();
-  }
- } */
